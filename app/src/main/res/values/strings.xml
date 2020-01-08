@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MineField</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_game">Game</string>
+    <string name="yoyo">Yoyo</string>
+    <string name="gimme_some_text">Gimme some text</string>
+</resources>
