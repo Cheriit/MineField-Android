@@ -6,12 +6,16 @@
 
     <include layout="@layout/notch" />
 
-    <com.cherit.minefield.ui.game.components.Board
-        android:id="@+id/game_board"
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="@dimen/board_size"
         android:layout_height="@dimen/board_size"
+        android:id="@+id/game_board"
         android:layout_centerInParent="true"
-        />
+        android:background="@drawable/board_padding"
+        android:padding="@dimen/board_padding"
+        android:layout_weight="1"
+        >
+    </GridLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"

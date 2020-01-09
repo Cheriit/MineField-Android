@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.cherit.minefield.R;
 import com.cherit.minefield.ui.game.components.Board;
-import com.cherit.minefield.ui.game.components.Field;
 import com.cherit.minefield.ui.home.HomeViewModel;
 
 import java.util.Objects;
@@ -33,14 +31,15 @@ public class GameFragment extends Fragment {
                 ViewModelProviders.of(getActivity()).get(GameViewModel.class);
         View root = inflater.inflate(R.layout.fragment_game, container, false);
 
-        Board board_grid = root.findViewById(R.id.game_board);
-        board_grid.setup(4, 2);
+        GridLayout board_grid = root.findViewById(R.id.game_board);
+        Board board = new Board(20, 2, board_grid, getActivity());
         gameViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 //                textView.setText(homeViewModel.getSomeText().getValue());
             }
         });
+
         return root;
     }
 

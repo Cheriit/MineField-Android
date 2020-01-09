@@ -1,8 +1,10 @@
 package com.cherit.minefield.ui.game.components;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.widget.GridView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -15,20 +17,18 @@ public class Field extends AppCompatImageView {
     private int x_pos;
     private int y_pos;
     private int closeMines;
-    private Context root;
 
     public Field(int x, int y, Context context) {
         super(context);
-        root = context;
         isDiscovered = false;
         isMine = false;
         closeMines = 0;
         this.x_pos = x;
         this.y_pos = y;
         setImageResource(R.drawable.empty_field);
-        System.out.println(getParent());
-//        setScaleType(Field.ScaleType.CENTER_CROP);
-        setBackgroundColor(Color.BLUE);
+        setScaleType(ScaleType.FIT_XY);
+        int padding = (int) getResources().getDimension(R.dimen.field_padding);
+        setPadding(padding, padding, padding, padding);
     }
 
     public int getX_pos() { return x_pos; }
@@ -48,14 +48,19 @@ public class Field extends AppCompatImageView {
 
     public void discover() {
         isDiscovered = true;
-        setImageResource(R.drawable.discovered_field);
         if(isMine)
         {
-            setBackgroundColor(Color.RED);
+            Bitmap bigImage = BitmapFactory.decodeResource(getResources(), R.drawable.discovered_field);
+            Bitmap smallImage = BitmapFactory.decodeResource(getResources(), R.drawable.mine);
+            Bitmap result = Bitmap.createBitmap(bigImage.getWidth(), bigImage.getHeight(), bigImage.getConfig());
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bigImage, 0f, 0f, null);
+            canvas.drawBitmap(smallImage, 10, 10, null);
+            setImageBitmap(result);
         }
         else
         {
-            setBackgroundColor(Color.BLACK);
+            setImageResource(R.drawable.discovered_field);
         }
     }
     public void setMarked(boolean marked) {
