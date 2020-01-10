@@ -9,8 +9,8 @@ public class GameViewModel extends ViewModel {
     private MutableLiveData<String> mText;
     private boolean isGameRunning;
     private boolean isMarking;
-    private int rows;
-    private int cols;
+    private int size = 10;
+    private int minesNumber = 20;
 
     public GameViewModel() {
         mText = new MutableLiveData<>();
@@ -21,15 +21,35 @@ public class GameViewModel extends ViewModel {
         return mText;
     }
 
-    public boolean isGameRunning() { return isGameRunning; }
-    public void setGameRunning(boolean gameRunning) { isGameRunning = gameRunning; }
+    public boolean isGameRunning() {
+        return isGameRunning;
+    }
 
-    public boolean isMarking() { return isMarking; }
-    public void setMarking(boolean marking) { isMarking = marking; }
+    public void setGameRunning(boolean gameRunning) {
+        isGameRunning = gameRunning;
+    }
 
-    public int getCols() { return cols; }
-    public void setCols(int cols) { this.cols = cols; }
+    public boolean isMarking() {
+        return isMarking;
+    }
 
-    public int getRows() { return rows; }
-    public void setRows(int rows) { this.rows = rows; }
+    public void setMarking(boolean marking) {
+        isMarking = marking;
+    }
+
+    public int getMinesNumber() {
+        return minesNumber;
+    }
+
+    public void setMinesNumber(int minesNumber) {
+        this.minesNumber = minesNumber;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

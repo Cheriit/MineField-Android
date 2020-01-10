@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A88F7C5C">
+    android:background="#A88F7C5C"
+    android:id="@+id/game_fragment">
 
-    <include layout="@layout/notch" />
+    <fragment
+        android:id="@+id/notch_fragment"
+        android:name="com.cherit.minefield.ui.game.components.Notch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/notch"
+    />
 
-    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment
+        android:id="@+id/board_fragment"
+        android:name="com.cherit.minefield.ui.game.components.Board"
         android:layout_width="@dimen/board_size"
         android:layout_height="@dimen/board_size"
-        android:id="@+id/game_board"
         android:layout_centerInParent="true"
-        android:background="@drawable/board_padding"
-        android:padding="@dimen/board_padding"
-        android:layout_weight="1"
-        >
-    </GridLayout>
+        tools:layout="@layout/board"
+        />
 
-    <RelativeLayout
+    <fragment
+        android:id="@+id/flag_switch"
+        android:tag="Game"
+        android:name="com.cherit.minefield.ui.game.components.FlagSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        >
+        tools:layout="@layout/flag_switch"
+        />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:thumbTint="@color/colorWhite"
-            android:trackTint="@color/colorWhite" />
-    </RelativeLayout>
 
 </RelativeLayout>

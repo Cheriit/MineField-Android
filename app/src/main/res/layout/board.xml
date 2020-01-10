@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/board_size"
+    android:layout_height="@dimen/board_size"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_board"
+    android:background="@drawable/board_padding"
+    android:padding="@dimen/board_padding"
+    android:layout_weight="1"
+    tools:showIn="@layout/fragment_game">
+</GridLayout>
+
