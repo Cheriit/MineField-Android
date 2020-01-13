@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A88F7C5C"
+    android:background="@color/material_bg"
     android:id="@+id/game_fragment">
 
     <fragment

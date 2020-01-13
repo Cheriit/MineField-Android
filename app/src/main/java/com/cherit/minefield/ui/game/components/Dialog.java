@@ -45,11 +45,11 @@ public class Dialog extends DialogFragment {
         getUI(root);
         setListeners();
         if (isGameWon){
-            textContent.setTextColor(Color.GREEN);
+            textContent.setTextColor(Color.parseColor("#388E3C"));
             textContent.setText("You won!");
         }
         else{
-            textContent.setTextColor(Color.RED);
+            textContent.setTextColor(Color.parseColor("#FFD32F2F"));
             textContent.setText("You lost!");
         }
         return root;

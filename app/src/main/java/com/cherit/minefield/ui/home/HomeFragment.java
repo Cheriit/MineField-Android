@@ -5,55 +5,64 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.cherit.minefield.R;
+import com.cherit.minefield.ui.settings.SettingsViewModel;
 
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private Button tmpBtn;
-    private EditText editText;
-    private TextView textView;
+    private Button startGameBtn;
+    private Button settingsBtn;
+    private Button exitBtn;
+    private SettingsViewModel settingsViewModel;
 
-    private void getComponents(View root) {
-        textView = root.findViewById(R.id.text_home);
-        tmpBtn = root.findViewById(R.id.btn1);
-        editText = root.findViewById(R.id.some_text);
-    }
-
-    private void connectHomeViewModel() {
-        homeViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(HomeViewModel.class);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-    }
+//    private void connectHomeViewModel() {
+//        homeViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(HomeViewModel.class);
+//        homeViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+//    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         getComponents(root);
-        connectHomeViewModel();
-        tmpBtn.setOnClickListener(new View.OnClickListener() {
+        setListeners();
+        settingsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(SettingsViewModel.class);
+        root.setBackgroundResource(R.color.material_bg);
+        return root;
+    }
+    private void getComponents(View root) {
+        startGameBtn = root.findViewById(R.id.start_game);
+        settingsBtn = root.findViewById(R.id.settings);
+        exitBtn = root.findViewById(R.id.exit);
+    }
+    private void setListeners(){
+        startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                homeViewModel.setSomeText(editText.getText().toString());
                 Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_game);
-            }
-        });
-        return root;
+            }});
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(Objects.requireNonNull(getActivity()), R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_settings);
+            }});
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+                System.exit(0);
+            }});
     }
 }

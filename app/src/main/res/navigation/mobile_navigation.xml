@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_game"
             app:destination="@id/nav_game" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_settings"
+            app:destination="@id/nav_settings" />
     </fragment>
 
     <fragment
@@ -22,6 +25,15 @@
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_nav_game_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.cherit.minefield.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
 </navigation>

@@ -16,18 +16,21 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.cherit.minefield.R;
 import com.cherit.minefield.ui.game.GameViewModel;
+import com.cherit.minefield.ui.settings.SettingsViewModel;
 
 import java.time.Duration;
 import java.time.Instant;
 
 public class Notch extends Fragment implements Runnable {
     private TextView timer_time;
+    private TextView timer_text;
     private ImageButton retryBtn;
     private GameViewModel gameViewModel;
     private Duration duration;
     private Instant startTime;
     private OnGameRetry listener;
     private Handler handler;
+    private SettingsViewModel settingsViewModel;
 
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -41,12 +44,20 @@ public class Notch extends Fragment implements Runnable {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.notch, container, false);
         gameViewModel =
                 ViewModelProviders.of(getActivity()).get(GameViewModel.class);
-        View root = inflater.inflate(R.layout.notch, container, false);
+        settingsViewModel =
+                ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
+
         startTime = Instant.now();
-        getUI(root);
+        getComponents(root);
         setListener();
+        duration = Duration.ofSeconds(settingsViewModel.getTimeLimit().getValue());
+
+        if (duration.isZero()){
+            timer_text.setText("Time");
+        }
 
         handler = new Handler();
         handler.post(this);
@@ -59,7 +70,8 @@ public class Notch extends Fragment implements Runnable {
         super.onDestroyView();
     }
 
-    private void getUI(View root) {
+    private void getComponents(View root) {
+        timer_text = root.findViewById(R.id.timer_text);
         timer_time = root.findViewById(R.id.remaining_time);
         retryBtn = root.findViewById(R.id.retryBtn);
     }
@@ -79,15 +91,18 @@ public class Notch extends Fragment implements Runnable {
             Duration runTime;
             Duration remainingTime;
             runTime = Duration.between(startTime, Instant.now());
-            if (false) {
+            if (duration.getSeconds()>0) {
                 remainingTime = duration.minus(runTime);
+                if(remainingTime.getSeconds() == 0){
+                    gameViewModel.setGameRunning(false);
+                    Dialog dialog = new Dialog(false);
+                    dialog.show(getFragmentManager(), "Dialog");
+                }
             } else {
                 remainingTime = runTime;
             }
-            if (remainingTime.isNegative()) {
-                timer_time.setText("00:00");
-            } else {
-                timer_time.setText(String.format("%02d:%02d", remainingTime.toMinutes(), remainingTime.getSeconds() % 60));
+            timer_time.setText(String.format("%02d:%02d", remainingTime.toMinutes(), remainingTime.getSeconds() % 60));
+            if ((remainingTime.getSeconds() > 0 && duration.getSeconds()>0) || duration.getSeconds() == 0) {
                 handler.postDelayed(this, 1000);
             }
         }

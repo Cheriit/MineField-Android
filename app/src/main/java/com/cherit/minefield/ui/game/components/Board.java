@@ -16,11 +16,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.cherit.minefield.R;
 import com.cherit.minefield.ui.game.GameViewModel;
+import com.cherit.minefield.ui.settings.SettingsViewModel;
 
 import java.util.Random;
 
 public class Board extends Fragment implements AdapterView.OnClickListener {
     private GameViewModel gameViewModel;
+    private SettingsViewModel settingsViewModel;
     private Field[] fields;
     private int mines_number;
     private int mines_discovered;
@@ -35,6 +37,8 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         gameViewModel =
                 ViewModelProviders.of(getActivity()).get(GameViewModel.class);
+        settingsViewModel =
+                ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.board, container, false);
         getUI(root);
         setParams();
@@ -52,8 +56,8 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
         fields_marked = 0;
         discovered_fields = 0;
         this.context = getActivity();
-        this.size = gameViewModel.getSize();
-        this.mines_number = gameViewModel.getMinesNumber();
+        size = settingsViewModel.getBoardSize().getValue();
+        mines_number = settingsViewModel.getMinesNumber().getValue();
         layout.setColumnCount(size);
         layout.setRowCount(size);
     }

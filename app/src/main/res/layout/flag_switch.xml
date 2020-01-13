@@ -12,6 +12,6 @@
         android:id="@+id/flag_switch_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:thumbTint="@color/colorWhite"
-        android:trackTint="@color/colorWhite" />
+        android:thumbTint="@color/colorWhiteTransparent"
+        android:trackTint="@color/colorWhiteTransparent" />
 </RelativeLayout>
