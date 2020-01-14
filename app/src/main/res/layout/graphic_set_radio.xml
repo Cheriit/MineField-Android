@@ -28,21 +28,21 @@
         app:layout_constraintTop_toBottomOf="@+id/graphicalSetText">
 
         <RadioButton
-            android:id="@+id/material"
+            android:id="@+id/forest"
             android:layout_width="40dp"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:background="@drawable/background_material"
+            android:background="@drawable/empty_field_forest"
             android:button="@android:color/transparent"
             android:layout_margin="5dp"
             />
 
         <RadioButton
-            android:id="@+id/forest"
+            android:id="@+id/mines"
             android:layout_width="40dp"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:background="@drawable/background_material"
+            android:background="@drawable/empty_field_mines"
             android:button="@android:color/transparent"
             android:layout_margin="5dp"
 
@@ -51,9 +51,9 @@
         <RadioButton
             android:id="@+id/sea"
             android:layout_width="40dp"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:background="@drawable/background_material"
+            android:background="@drawable/empty_field_sea"
             android:button="@android:color/transparent"
             android:layout_margin="5dp"
             />

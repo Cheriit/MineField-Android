@@ -8,6 +8,7 @@ public class GameViewModel extends ViewModel {
 
     private boolean isGameRunning;
     private boolean isMarking;
+    private int[] imageSet;
 
     public GameViewModel() {
     }
@@ -26,5 +27,13 @@ public class GameViewModel extends ViewModel {
 
     public void setMarking(boolean marking) {
         isMarking = marking;
+    }
+
+    public int[] getImageSet() {
+        return imageSet;
+    }
+
+    public void setImageSet(int[] imageSet) {
+        this.imageSet = imageSet;
     }
 }

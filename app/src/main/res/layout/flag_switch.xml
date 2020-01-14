@@ -8,10 +8,19 @@
     tools:showIn="@layout/fragment_game"
     >
 
+    <ImageView
+        android:id="@+id/flag_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/flag"
+        android:layout_centerHorizontal="true"/>
     <Switch
         android:id="@+id/flag_switch_btn"
+        android:layout_below="@+id/flag_img"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:thumbTint="@color/colorWhiteTransparent"
-        android:trackTint="@color/colorWhiteTransparent" />
+        android:trackTint="#A88F7C"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -18,7 +18,10 @@ import com.cherit.minefield.R;
 import com.cherit.minefield.ui.game.GameViewModel;
 import com.cherit.minefield.ui.settings.SettingsViewModel;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import static android.os.SystemClock.sleep;
 
 public class Board extends Fragment implements AdapterView.OnClickListener {
     private GameViewModel gameViewModel;
@@ -31,6 +34,10 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
     private int fields_marked;
     private Context context;
     private GridLayout layout;
+    private int[] numbers = {
+            R.drawable.num_1, R.drawable.num_2, R.drawable.num_3, R.drawable.num_4,
+            R.drawable.num_5, R.drawable.num_6, R.drawable.num_7, R.drawable.num_8,
+    };
 
     @Nullable
     @Override
@@ -44,6 +51,7 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
         setParams();
         generateFields();
         generateMines();
+        setFields();
         return root;
     }
 
@@ -81,7 +89,7 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
         fields = new Field[size * size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                newField = new Field(i, j, context);
+                newField = new Field(i, j, gameViewModel.getImageSet()[2], gameViewModel.getImageSet()[1], context);
                 fields[i * size + j] = newField;
                 newField.setOnClickListener(this);
                 newField.setLayoutParams(new LinearLayout.LayoutParams(container_width / size, container_width / size));
@@ -140,16 +148,14 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
                             field.discover();
                             System.out.println("You lost");
                             gameViewModel.setGameRunning(false);
-                            Dialog dialog = new Dialog(false);
-                            dialog.show(getFragmentManager(), "Dialog");
+                            showDialog();
                         } else {
                             discoverField(field.getX_pos(), field.getY_pos());
                             if (size * size == discovered_fields + mines_number || size * size == discovered_fields + mines_discovered + fields_marked) {
                                 System.out.println("You won!");
                                 discoverAll();
                                 gameViewModel.setGameRunning(false);
-                                Dialog dialog = new Dialog(true);
-                                dialog.show(getFragmentManager(), "Dialog");
+                                showDialog();
                             }
                         }
                     }
@@ -161,5 +167,20 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
                 }
             }
         }
+    }
+    private void setFields(){
+        for (int i=0; i<fields.length; i++){
+            if(fields[i].isMine()){
+                fields[i].setDescriptionImage(gameViewModel.getImageSet()[0]);
+            }else if(fields[i].getCloseMines()>0) {
+                fields[i].setDescriptionImage(numbers[fields[i].getCloseMines() - 1]);
+            }
+        }
+    }
+
+    public void showDialog(){
+        Dialog dialog = new Dialog(gameViewModel.isGameRunning());
+        sleep(10);
+        dialog.show(getFragmentManager(), "Dialog");
     }
 }

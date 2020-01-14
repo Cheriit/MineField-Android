@@ -16,8 +16,11 @@ public class Field extends AppCompatImageView {
     private int x_pos;
     private int y_pos;
     private int closeMines;
+    private int descriptionImage;
+    private int emptyImage;
+    private int discoverImage;
 
-    public Field(int x, int y, Context context) {
+    public Field(int x, int y, int discoverImage, int emptyImage, Context context) {
         super(context);
         isDiscovered = false;
         isMine = false;
@@ -25,7 +28,9 @@ public class Field extends AppCompatImageView {
         closeMines = 0;
         this.x_pos = x;
         this.y_pos = y;
-        setImageResource(R.drawable.empty_field);
+        this.discoverImage = discoverImage;
+        this.emptyImage = emptyImage;
+        setImageResource(emptyImage);
         setScaleType(ScaleType.FIT_XY);
         int padding = (int) getResources().getDimension(R.dimen.field_padding);
         setPadding(padding, padding, padding, padding);
@@ -73,19 +78,19 @@ public class Field extends AppCompatImageView {
         if (!isDiscovered) {
             isMarked = marked;
             if (marked) {
-                setBackgroundImage(R.drawable.empty_field, R.drawable.mine);
+                setBackgroundImage(emptyImage, R.drawable.flag);
             } else {
-                setImageResource(R.drawable.empty_field);
+                setImageResource(emptyImage);
             }
         }
     }
 
     public void discover() {
         isDiscovered = true;
-        if (isMine) {
-            setBackgroundImage(R.drawable.discovered_field, R.drawable.mine);
+        if (isMine || closeMines>0) {
+            setBackgroundImage(discoverImage, descriptionImage);
         } else {
-            setImageResource(R.drawable.discovered_field);
+            setImageResource(discoverImage);
         }
     }
     private void setBackgroundImage(int res1, int res2)
@@ -95,7 +100,11 @@ public class Field extends AppCompatImageView {
         Bitmap result = Bitmap.createBitmap(bigImage.getWidth(), bigImage.getHeight(), bigImage.getConfig());
         Canvas canvas = new Canvas(result);
         canvas.drawBitmap(bigImage, 0f, 0f, null);
-        canvas.drawBitmap(smallImage, 10, 10, null);
+        canvas.drawBitmap(smallImage, 0f, 0f, null);
         setImageBitmap(result);
+    }
+
+    public void setDescriptionImage(int descriptionImage) {
+        this.descriptionImage = descriptionImage;
     }
 }

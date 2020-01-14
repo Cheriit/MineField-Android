@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
         getComponents(root);
         setListeners();
         settingsViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(SettingsViewModel.class);
-        root.setBackgroundResource(R.color.material_bg);
         return root;
     }
     private void getComponents(View root) {

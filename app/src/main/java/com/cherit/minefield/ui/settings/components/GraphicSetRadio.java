@@ -42,19 +42,19 @@ public class GraphicSetRadio extends Fragment {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                group.findViewById(R.id.material).setBackground();
-//                group.findViewById(R.id.material).setBackground();
-//                group.findViewById(R.id.material).setBackground();
-                if(checkedId == R.id.material){
-                    settingsViewModel.getActiveTheme().setValue(0);
-//                    group.findViewById(R.id.material).setBackground();
+                group.findViewById(R.id.mines).setBackgroundResource(settingsViewModel.getImageSet(2)[1]);
+                group.findViewById(R.id.forest).setBackgroundResource(settingsViewModel.getImageSet(0)[1]);
+                group.findViewById(R.id.sea).setBackgroundResource(settingsViewModel.getImageSet(1)[1]);
+                if(checkedId == R.id.mines){
+                    settingsViewModel.getActiveTheme().setValue(2);
+                    group.findViewById(R.id.mines).setBackgroundResource(settingsViewModel.getImageSet(2)[2]);
                 }else if(checkedId == R.id.forest){
-                    settingsViewModel.getActiveTheme().setValue(1);
-//                    group.findViewById(R.id.forest).setBackground();
+                    settingsViewModel.getActiveTheme().setValue(0);
+                    group.findViewById(R.id.forest).setBackgroundResource(settingsViewModel.getImageSet(0)[2]);
 
                 }else{
-                    settingsViewModel.getActiveTheme().setValue(2);
-//                    group.findViewById(R.id.sea).setBackground();
+                    settingsViewModel.getActiveTheme().setValue(1);
+                    group.findViewById(R.id.sea).setBackgroundResource(settingsViewModel.getImageSet(1)[2]);
                 }
             }
         });
