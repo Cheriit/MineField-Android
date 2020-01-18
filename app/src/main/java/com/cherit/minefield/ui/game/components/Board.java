@@ -120,10 +120,14 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
             fields[x * size + y].discover();
             discovered_fields++;
             if (fields[x * size + y].getCloseMines() == 0) {
-                if (isValidNeighbor(x, y - 1)) discoverField(x, y - 1);
-                if (isValidNeighbor(x - 1, y)) discoverField(x - 1, y);
+                if (isValidNeighbor(x + 1, y - 1)) discoverField(x + 1, y - 1);
                 if (isValidNeighbor(x + 1, y)) discoverField(x + 1, y);
+                if (isValidNeighbor(x + 1, y + 1)) discoverField(x + 1, y + 1);
+                if (isValidNeighbor(x, y - 1)) discoverField(x, y - 1);
                 if (isValidNeighbor(x, y + 1)) discoverField(x, y + 1);
+                if (isValidNeighbor(x - 1, y - 1)) discoverField(x - 1, y - 1);
+                if (isValidNeighbor(x - 1, y)) discoverField(x - 1, y);
+                if (isValidNeighbor(x - 1, y + 1)) discoverField(x - 1, y + 1);
             }
         }
     }
@@ -146,16 +150,14 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
                     if (!field.isMarked()) {
                         if (field.isMine()) {
                             field.discover();
-                            System.out.println("You lost");
                             gameViewModel.setGameRunning(false);
-                            showDialog();
+                            showDialog(false);
                         } else {
                             discoverField(field.getX_pos(), field.getY_pos());
                             if (size * size == discovered_fields + mines_number || size * size == discovered_fields + mines_discovered + fields_marked) {
-                                System.out.println("You won!");
                                 discoverAll();
                                 gameViewModel.setGameRunning(false);
-                                showDialog();
+                                showDialog(true);
                             }
                         }
                     }
@@ -178,8 +180,8 @@ public class Board extends Fragment implements AdapterView.OnClickListener {
         }
     }
 
-    public void showDialog(){
-        Dialog dialog = new Dialog(gameViewModel.isGameRunning());
+    public void showDialog(boolean isGameWon){
+        Dialog dialog = new Dialog(isGameWon);
         sleep(10);
         dialog.show(getFragmentManager(), "Dialog");
     }

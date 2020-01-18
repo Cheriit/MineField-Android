@@ -31,6 +31,18 @@ public class GraphicSetRadio extends Fragment {
                 ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
         getComponents(root);
         setListener();
+        switch (settingsViewModel.getActiveTheme().getValue()){
+            case 0:
+                radioGroup.findViewById(R.id.forest).setBackgroundResource(settingsViewModel.getImageSet(0)[2]);
+                break;
+            case 1:
+                radioGroup.findViewById(R.id.sea).setBackgroundResource(settingsViewModel.getImageSet(1)[2]);
+                break;
+            default:
+                radioGroup.findViewById(R.id.mines).setBackgroundResource(settingsViewModel.getImageSet(2)[2]);
+                break;
+
+        }
         return root;
     }
 
@@ -51,7 +63,6 @@ public class GraphicSetRadio extends Fragment {
                 }else if(checkedId == R.id.forest){
                     settingsViewModel.getActiveTheme().setValue(0);
                     group.findViewById(R.id.forest).setBackgroundResource(settingsViewModel.getImageSet(0)[2]);
-
                 }else{
                     settingsViewModel.getActiveTheme().setValue(1);
                     group.findViewById(R.id.sea).setBackgroundResource(settingsViewModel.getImageSet(1)[2]);
